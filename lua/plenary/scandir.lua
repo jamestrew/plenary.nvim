@@ -223,7 +223,8 @@ m.scan_dir_async = function(path, opts)
     end
   end
   if #base_paths == 0 then
-    return {}
+    opts.on_exit(nil)
+    return
   end
 
   local read_dir
@@ -426,6 +427,9 @@ local get_max_len = function(tbl)
 end
 
 local gen_ls = function(data, path, opts)
+  if data == nil then
+    return nil, nil
+  end
   if not data or #data == 0 then
     return {}, {}
   end
